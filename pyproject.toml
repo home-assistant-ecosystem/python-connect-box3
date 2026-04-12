@@ -1,0 +1,118 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "connect-box3"
+version = "0.1.0"
+description = "Python client for interacting with Connect Box 3 devices."
+readme = "README.md"
+license = "MIT"
+authors = [
+    { name = "Fabian Affolter", email = "fabian@affolter-engineering.ch" },
+]
+requires-python = ">=3.13"
+dependencies = [
+    "cyclopts>=3.0",
+    "httpx<1.0.0",
+    "mashumaro>=3.13",
+    "rich>=13.0",
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Utilities",
+]
+
+[project.urls]
+Homepage = "https://github.com/home-assistant-ecosystem/python-connect-box3"
+Download = "https://github.com/home-assistant-ecosystem/python-connect-box3/releases"
+
+[project.scripts]
+connect-box = "connect_box3.cli:main"
+
+[project.optional-dependencies]
+test = [
+    "pytest-asyncio>=0.23.3",
+    "pytest-httpx>=0.35.0",
+    "pytest>=9.0.0",
+    "syrupy>=4.6.0",
+    "ruff>=0.0.241",
+]
+
+[tool.hatch.envs.test]
+dependencies = [
+    "httpx<1.0.0",
+    "pytest-asyncio>=0.23.3",
+    "pytest-httpx>=0.35.0",
+    "pytest>=9.0.0",
+]
+
+[tool.ruff]
+src = ["connect_box", "tests"]
+line-length = 88
+
+[tool.ruff.format]
+docstring-code-format = true
+skip-magic-trailing-comma = true
+
+[tool.ruff.lint]
+select = [
+    "B",  # bugbear
+    "D",  # pydocstyle
+    "E",  # pycodestyle
+    "F",  # pyflakes
+    "I",  # isort
+    "PYI", # flake8-pyi
+    "UP", # pyupgrade
+    "RUF", # ruff
+    "W",  # pycodestyle
+    "PIE", # flake8-pie
+    "PGH004", # pygrep-hooks - Use specific rule codes when using noqa
+    "PLE", # pylint error
+    "PLW", # pylint warning
+    "PLR1714", # Consider merging multiple comparisons
+    "T100", # flake8-debugger
+]
+ignore = [
+    "B004", # Using `hasattr(x, "__call__")` to test if x is callable is unreliable.
+    "B007", # Loop control variable `i` not used within loop body
+    "B009", # Do not call `getattr` with a constant attribute value
+    "B010", # [*] Do not call `setattr` with a constant attribute value.
+    "B011", # Do not `assert False` (`python -O` removes these calls)
+    "B028", # No explicit `stacklevel` keyword argument found
+    "D203", # 1 blank line required before class docstring
+    "D212", # Multi-line docstring summary should start at the first line
+    "E721", # Do not compare types, use `isinstance()`
+    "F401", # Module imported but unused
+    "D415", # First line should end with a period, question mark, or exclamation point
+    "RUF012", # Mutable class attributes should be annotated with `typing.ClassVar`
+    "PLW0603",  # Using the global statement
+    "PLW0120",  # remove the else and dedent its contents
+    "PLW2901",  # for loop variable overwritten by assignment target
+    "PLR5501",  # Use `elif` instead of `else` then `if`
+    "UP035",  # Syntax features not supported by minimum Python version
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["connect_box"]
+split-on-trailing-comma = false
+
+[tool.hatch.envs.test.scripts]
+run = "pytest"
+
+[tool.hatch.build.targets.wheel]
+packages = ["connect_box3"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
