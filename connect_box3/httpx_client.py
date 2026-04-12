@@ -1,7 +1,8 @@
 """Asynchronous Connect Box client using httpx."""
 
-import httpx
 from typing import Optional
+
+import httpx
 
 from .exceptions import (
     ConnectBoxConnectionError,
@@ -12,9 +13,9 @@ from .exceptions import (
 
 
 class ConnectBoxClient:
-    """Asynchronous client for interacting with the Connect Box 3 API using httpx."""
+    """Client for interacting with the Connect Box 3 API using httpx."""
 
-    def __init__(self, base_url: str, session: Optional[httpx.AsyncClient] = None):
+    def __init__(self, base_url: str, session: httpx.AsyncClient | None = None):
         """Initialize the client with the base URL and an optional httpx session."""
         self.base_url = base_url.rstrip("/")
         self._external_session = session is not None
@@ -24,7 +25,7 @@ class ConnectBoxClient:
         self._token = None
 
     async def login(self, password: str) -> dict:
-        """Authenticate with the Connect Box 3 and store the session token if provided."""
+        """Authenticate and store the session token if provided."""
         url = "/user/login"
         payload = {"password": password}
         try:
