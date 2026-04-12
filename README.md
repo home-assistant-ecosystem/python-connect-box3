@@ -1,7 +1,8 @@
-# python-connect-box3
-Client to interact with a Connect Box 3 modem/router. 
+# connect-box3
 
-FOr older hardware revisions, please use [python-connect-box](https://github.com/home-assistant-ecosystem/python-connect-box)
+Python API Client to interact with a Connect Box 3 modem/router. 
+
+***For older hardware revisions, please use [python-connect-box](https://github.com/home-assistant-ecosystem/python-connect-box)***
 
 The device could be provided under different names by various ISP in Europe.
 
