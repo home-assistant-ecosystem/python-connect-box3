@@ -19,7 +19,7 @@ class ConnectBoxClient:
         self.base_url = base_url.rstrip("/")
         self._external_session = session is not None
         self.session = session or httpx.AsyncClient(
-            base_url=self.base_url, timeout=30.0
+            base_url=self.base_url, timeout=10.0
         )
         self._token = None
 
