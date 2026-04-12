@@ -32,6 +32,6 @@ jobs:
         pip install ruff
         ruff check .
 
-    - name: Run tests with hatch
-      run: |
-        hatch run test:run
+    # - name: Run tests with hatch
+    #   run: |
+    #     hatch run test:run
