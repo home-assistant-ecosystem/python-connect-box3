@@ -2,7 +2,7 @@
 
 Python API Client to interact with a Connect Box 3 modem/router. 
 
-***For older hardware revisions (e. g., UPC Connect Box 2), please use [connect-box](https://github.com/home-assistant-ecosystem/python-connect-box)***
+***For older hardware revisions (e. g., UPC Connect Box 2), please use [connect-box](https://github.com/home-assistant-ecosystem/python-connect-box)***.
 
 The device could be provided under different names by various ISP in Europe.
 
@@ -22,7 +22,7 @@ This module is not official, developed, supported or endorsed by Sunrise, UPC, U
 $ pip3 install connect-box3
 ```
 
-For NixOS, the package is available in the [nixos.python3Packages.connect-box3](https://search.nixos.org/packages?channel=unstable&query=connect-box3) repository.
+For NixOS, the package is available from [Nixpkgs](https://search.nixos.org/packages?channel=unstable&query=connect-box3).
 
 ```bash
 $ nix-env -iA nixos.python3Packages.connect-box3
