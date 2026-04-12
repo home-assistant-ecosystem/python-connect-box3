@@ -33,9 +33,9 @@ jobs:
     - name: Build package
       run: hatch build
 
-    # - name: Run tests with hatch
-    #   run: |
-    #     hatch run test:run
+    - name: Run tests with hatch
+      run: |
+        hatch run test:run
 
     - name: Publish package distributions to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
