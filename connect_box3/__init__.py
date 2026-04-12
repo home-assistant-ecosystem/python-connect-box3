@@ -1,8 +1,10 @@
 """API wrapper to get data from a Connect Box 3."""
 
-import httpx
-from typing import List, Optional
+from typing import List, Optional, Self
 
+import httpx
+
+from .httpx_client import ConnectBoxClient
 from .models import (
     DhcpConfig,
     Dmz,
@@ -29,8 +31,6 @@ from .models import (
     WpsConfig,
     WpsPairingJobs,
 )
-from .httpx_client import ConnectBoxClient
-
 
 # Endpoint definitions: (method_name, url, model_class, extract_key, store_attr)
 _ENDPOINTS = [
@@ -171,42 +171,42 @@ class ConnectBox:
         self,
         password: str,
         host: str = "192.168.0.1",
-        session: Optional[httpx.AsyncClient] = None,
+        session: httpx.AsyncClient | None = None,
     ):
         """Initialize the connection."""
         self.base_url = f"http://{host}/rest/v1"
         self._client = ConnectBoxClient(base_url=self.base_url, session=session)
         self.host: str = host
         self.password: str = password
-        self.dhcp: Optional[DhcpConfig] = None
-        self.dmz: Optional[Dmz] = None
-        self.first_install: Optional[FirstInstall] = None
-        self.hosts: Optional[List[Host]] = None
-        self.ipv4_firewall: Optional[Firewall] = None
-        self.ipv6_firewall: Optional[Firewall] = None
-        self.languages: Optional[Languages] = None
-        self.lanstatus: Optional[LanStatus] = None
-        self.led: Optional[LedLight] = None
-        self.localization: Optional[Localization] = None
-        self.login_status: Optional[LoginDetails] = None
-        self.modem_mode: Optional[ModemMode] = None
-        self.mta_lines: Optional[List[MtaLineEntry]] = None
-        self.pon_state: Optional[PonState] = None
-        self.pon_status: Optional[PonStatus] = None
-        self.provisioning: Optional[Provisioning] = None
-        self.software_update: Optional[SoftwareUpdate] = None
-        self.system_info: Optional[SystemInfo] = None
-        self.ui_screens: Optional[UiScreens] = None
-        self.upnp: Optional[Upnp] = None
-        self.user_language: Optional[UserLanguage] = None
-        self.wifi_band2g_config: Optional[WifiConfig] = None
-        self.wifi_band2g_state: Optional[WifiState] = None
-        self.wifi_band2g_wps_config: Optional[WpsConfig] = None
-        self.wifi_band2g_wps_jobs: Optional[WpsPairingJobs] = None
-        self.wifi_band5g_config: Optional[WifiConfig] = None
-        self.wifi_band5g_state: Optional[WifiState] = None
-        self.wifi_band5g_wps_config: Optional[WpsConfig] = None
-        self.wifi_band5g_wps_jobs: Optional[WpsPairingJobs] = None
+        self.dhcp: DhcpConfig | None = None
+        self.dmz: Dmz | None = None
+        self.first_install: FirstInstall | None = None
+        self.hosts: list[Host] | None = None
+        self.ipv4_firewall: Firewall | None = None
+        self.ipv6_firewall: Firewall | None = None
+        self.languages: Languages | None = None
+        self.lanstatus: LanStatus | None = None
+        self.led: LedLight | None = None
+        self.localization: Localization | None = None
+        self.login_status: LoginDetails | None = None
+        self.modem_mode: ModemMode | None = None
+        self.mta_lines: list[MtaLineEntry] | None = None
+        self.pon_state: PonState | None = None
+        self.pon_status: PonStatus | None = None
+        self.provisioning: Provisioning | None = None
+        self.software_update: SoftwareUpdate | None = None
+        self.system_info: SystemInfo | None = None
+        self.ui_screens: UiScreens | None = None
+        self.upnp: Upnp | None = None
+        self.user_language: UserLanguage | None = None
+        self.wifi_band2g_config: WifiConfig | None = None
+        self.wifi_band2g_state: WifiState | None = None
+        self.wifi_band2g_wps_config: WpsConfig | None = None
+        self.wifi_band2g_wps_jobs: WpsPairingJobs | None = None
+        self.wifi_band5g_config: WifiConfig | None = None
+        self.wifi_band5g_state: WifiState | None = None
+        self.wifi_band5g_wps_config: WpsConfig | None = None
+        self.wifi_band5g_wps_jobs: WpsPairingJobs | None = None
 
     async def login(self, password: str) -> dict:
         """Authenticate with the Connect Box and store the session token."""
@@ -226,7 +226,7 @@ class ConnectBox:
         self.user_language = UserLanguage.from_dict(data.get("language", {}))
         return self.user_language
 
-    async def get_hosts(self, connected_only: bool = True) -> List[Host]:
+    async def get_hosts(self, connected_only: bool = True) -> list[Host]:
         """Get network hosts."""
         params = {"connectedOnly": str(connected_only).lower()}
         response = await self._client.request("GET", "/network/hosts", params=params)
@@ -234,7 +234,7 @@ class ConnectBox:
         self.hosts = [Host.from_dict(h) for h in data["hosts"]["hosts"]]
         return self.hosts
 
-    async def get_mta_lines(self) -> List[MtaLineEntry]:
+    async def get_mta_lines(self) -> list[MtaLineEntry]:
         """Get MTA lines information."""
         response = await self._client.request("GET", "/mta/lines")
         data = response.json()
@@ -258,13 +258,14 @@ class ConnectBox:
         """Close the underlying HTTP session."""
         await self._client.close()
 
-    async def __aenter__(self) -> "ConnectBox":
+    async def __aenter__(self) -> Self:
         """Support async context manager entry."""
         await self._client.__aenter__()
         return self
 
     async def __aexit__(
-        self, exc_type: type | None, exc: BaseException | None, tb: object
+        self, exc_type: type[BaseException] | None,
+        exc: BaseException | None, tb: object
     ) -> None:
         """Support async context manager exit."""
         await self._client.__aexit__(exc_type, exc, tb)
