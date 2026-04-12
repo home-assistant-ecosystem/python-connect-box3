@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "connect-box3"
-version = "0.1.0"
+version = "0.2.0"
 description = "Python client for interacting with Connect Box 3 devices."
 readme = "README.md"
 license = "MIT"
@@ -56,7 +56,7 @@ dependencies = [
 ]
 
 [tool.ruff]
-src = ["connect_box", "tests"]
+src = ["connect_box3", "tests"]
 line-length = 88
 
 [tool.ruff.format]
