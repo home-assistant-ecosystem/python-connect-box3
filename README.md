@@ -42,7 +42,7 @@ connect-box system --password xxx --host 192.168.1.1
 │ softwareVersion │ 4.11.1-2309.6 │
 │ hardwareVersion │ 1.2.1b        │
 └─────────────────┴───────────────┘
-````
+```
 
 See also `example.py` for usage examples.
 
