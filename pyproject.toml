@@ -43,7 +43,7 @@ test = [
     "pytest-asyncio>=0.23.3",
     "pytest-httpx>=0.35.0",
     "pytest>=9.0.0",
-    "syrupy>=4.6.0",
+    "syrupy>=6",
     "ruff>=0.0.241",
 ]
 
