@@ -19,13 +19,13 @@ This module is not official, developed, supported or endorsed by Sunrise, UPC, U
 `connect-box3` is available on [PyPI](https://pypi.org/project/connect-box3/).
 
 ```bash
-$ pip3 install connect-box3
+pip3 install connect-box3
 ```
 
 For NixOS, the package is available from [Nixpkgs](https://search.nixos.org/packages?channel=unstable&query=connect-box3).
 
 ```bash
-$ nix-env -iA nixos.python3Packages.connect-box3
+nix-env -iA nixos.python3Packages.connect-box3
 ```
 
 ## Usage
@@ -42,9 +42,33 @@ connect-box system --password xxx --host 192.168.1.1
 │ softwareVersion │ 4.11.1-2309.6 │
 │ hardwareVersion │ 1.2.1b        │
 └─────────────────┴───────────────┘
-````
+```
 
 See also `example.py` for usage examples.
+
+## Development
+
+### Running tests
+
+Tests use [hatch](https://hatch.pypa.io/) to manage the test environment. To run the test suite:
+
+```bash
+hatch run test:run
+```
+
+To run a specific test file or test:
+
+```bash
+hatch run test:run tests/test_client.py
+hatch run test:run -k test_login
+```
+
+### Linting
+
+```bash
+hatch run ruff check .
+hatch run ruff format --check .
+```
 
 ## License
 

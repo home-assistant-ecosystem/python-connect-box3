@@ -264,8 +264,10 @@ class ConnectBox:
         return self
 
     async def __aexit__(
-        self, exc_type: type[BaseException] | None,
-        exc: BaseException | None, tb: object
+        self,
+        exc_type: type[BaseException] | None,
+        exc: BaseException | None,
+        tb: object,
     ) -> None:
         """Support async context manager exit."""
         await self._client.__aexit__(exc_type, exc, tb)
