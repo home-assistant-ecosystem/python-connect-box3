@@ -19,13 +19,13 @@ This module is not official, developed, supported or endorsed by Sunrise, UPC, U
 `connect-box3` is available on [PyPI](https://pypi.org/project/connect-box3/).
 
 ```bash
-$ pip3 install connect-box3
+pip3 install connect-box3
 ```
 
 For NixOS, the package is available in the [nixos.python3Packages.connect-box3](https://search.nixos.org/packages?channel=unstable&query=connect-box3) repository.
 
 ```bash
-$ nix-env -iA nixos.python3Packages.connect-box3
+nix-env -iA nixos.python3Packages.connect-box3
 ```
 
 ## Usage
