@@ -46,6 +46,30 @@ connect-box system --password xxx --host 192.168.1.1
 
 See also `example.py` for usage examples.
 
+## Development
+
+### Running tests
+
+Tests use [hatch](https://hatch.pypa.io/) to manage the test environment. To run the test suite:
+
+```bash
+hatch run test:run
+```
+
+To run a specific test file or test:
+
+```bash
+hatch run test:run tests/test_client.py
+hatch run test:run -k test_login
+```
+
+### Linting
+
+```bash
+hatch run ruff check .
+hatch run ruff format --check .
+```
+
 ## License
 
 Licensed under MIT. See LICENSE for details.
