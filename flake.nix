@@ -34,8 +34,15 @@
         };
 
         checks = {
-          pytest = pkgs.runCommand "pytest" { buildInputs = [ pythonEnv ]; } ''
-            cd ${self}
+          pytest = pkgs.runCommand "pytest" {
+            buildInputs = [ pythonEnv pkgs.cacert ];
+            SSL_CERT_FILE = "${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt";
+          } ''
+            cp -r ${self} $TMPDIR/src
+            chmod -R u+w $TMPDIR/src
+            export PYTHONPATH="$TMPDIR/src:$PYTHONPATH"
+            export HOME="$TMPDIR"
+            cd $TMPDIR/src
             pytest --tb=short
             touch $out
           '';
