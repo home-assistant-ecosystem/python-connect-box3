@@ -164,10 +164,7 @@ for _cli_name, _method, _help in COMMANDS:
         """Factory to create CLI command functions."""
 
         def cmd(
-            *,
-            host: str | None = None,
-            password: str | None = None,
-            json: bool = False,
+            *, host: str | None = None, password: str | None = None, json: bool = False
         ):
             """Get data from the device."""
             _print(_run(_call(host, password, method)), raw=json, title=cli_name)
@@ -242,10 +239,7 @@ def reboot(*, host: str | None = None, password: str | None = None):
 
 @app.command(name="all")
 def all_data(
-    *,
-    host: str | None = None,
-    password: str | None = None,
-    json_output: bool = False,
+    *, host: str | None = None, password: str | None = None, json_output: bool = False
 ):
     """Get all data from the device."""
     host, password = _prompt(host, password)
